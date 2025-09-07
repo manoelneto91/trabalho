@@ -1,41 +1,23 @@
-import axios from "axios";
+// meu-conversor/app/api/exchange/rates/route.js
+import { NextResponse } from "next/server";
 
-export async function GET(req) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(req.url);
-    const base = searchParams.get("base") || "BRL"; // base padrão BRL
     const API_KEY = process.env.EXCHANGE_API_KEY;
+    const url = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/BRL`;
 
-    if (!API_KEY) {
-      return new Response(
-        JSON.stringify({ error: "API key não configurada." }),
-        { status: 500 }
-      );
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error("Erro ao buscar dados da API de câmbio");
     }
 
-    const response = await axios.get(
-      `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${base}`
-    );
+    const data = await res.json();
 
-    const data = response.data;
-
-    if (data.result !== "success") {
-      return new Response(JSON.stringify({ error: "Erro ao buscar cotações." }), {
-        status: 500,
-      });
-    }
-
-    return new Response(
-      JSON.stringify({
-        base: data.base_code,
-        conversion_rates: data.conversion_rates,
-      }),
-      { status: 200 }
-    );
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Erro na API:", error.message);
-    return new Response(JSON.stringify({ error: "Erro interno do servidor." }), {
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: error.message || "Erro interno" },
+      { status: 500 }
+    );
   }
-} 
+}

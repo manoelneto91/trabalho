@@ -1,37 +1,39 @@
+// meu-conversor/components/Ticker.jsx
 "use client";
+import React, { useEffect, useState } from "react";
 
-import { useEffect, useState } from "react";
-
-const topCurrencies = ["USD", "EUR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "SEK", "NZD"];
-
-export default function Ticker({ rates }) {
-  const [displayRates, setDisplayRates] = useState([]);
+export default function Ticker() {
+  const [quotes, setQuotes] = useState({});
+  const topCurrencies = ["USD", "EUR", "GBP", "JPY", "CHF", "AUD", "CAD", "CNY", "NZD", "KRW"];
 
   useEffect(() => {
-    if (!rates) return;
-    const filtered = topCurrencies
-      .map((code) => {
-        const value = rates[code];
-        if (!value) return null;
-        return { code, value };
-      })
-      .filter(Boolean);
-    setDisplayRates(filtered);
-  }, [rates]);
+    const fetchQuotes = async () => {
+      try {
+        const res = await fetch("/api/exchange/rates");
+        const data = await res.json();
+        setQuotes(data.conversion_rates || {});
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchQuotes();
+    const interval = setInterval(fetchQuotes, 60000); // atualiza a cada 60s
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="overflow-x-hidden relative bg-indigo-100 p-4 shadow-sm">
-      <div className="flex gap-4 whitespace-nowrap animate-marquee">
-        {displayRates.map(({ code, value }, i) => (
-          <div
-            key={i}
-            className="bg-white p-3 rounded-xl shadow flex items-center justify-center min-w-[120px]"
-          >
-            <span className="font-bold text-indigo-900 mr-2">{code}</span>
-            <span className="font-mono text-indigo-800">R$ {Number(value).toFixed(2).replace(".", ",")}</span>
+    <div style={{ display: "flex", overflowX: "auto", gap: "20px" }}>
+      {topCurrencies.map((currency) => {
+        const value = quotes[currency];
+        if (!value) return null;
+        return (
+          <div key={currency} style={{ minWidth: "100px", textAlign: "center" }}>
+            <div>{currency}</div>
+            <div>R$ {value.toFixed(2).replace(".", ",")}</div>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 }
