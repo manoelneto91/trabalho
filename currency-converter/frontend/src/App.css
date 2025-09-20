@@ -1,0 +1,188 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9fafb;
+  color: #0f172a;
+}
+
+.app {
+  max-width: 1080px;
+  margin: auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #1f2937;
+}
+
+/* ===== CARROSSEL ===== */
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.carousel-inner {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  align-items: center;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  min-width: 220px;
+  background: #ffffff;
+  border: 1px solid #e6f0ff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(23, 38, 60, 0.06);
+  text-align: center;
+}
+
+.carousel-item .ci-name {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 6px;
+  font-size: 0.98rem;
+}
+
+.carousel-item .ci-rate {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.carousel-item.active {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(79,70,229,0.12);
+  border-color: rgba(79,70,229,0.18);
+}
+
+/* ===== CONVERSOR ===== */
+.converter {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.block {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  min-width: 260px;
+  max-width: 420px;
+}
+
+.block label {
+  display: block;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls select,
+.controls input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.controls select {
+  min-width: 140px;
+  background: #fff;
+}
+
+.controls input {
+  min-width: 120px;
+  text-align: center;
+}
+
+/* valor convertido */
+.converted {
+  background: #eef2ff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.converted-value {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #0f172a;
+}
+.converted-symbol {
+  color: #374151;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+/* botão inverter */
+.invert-button {
+  display: block;
+  margin: 12px auto 0;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.invert-button:hover { background: #1d4ed8; }
+
+/* ===== IOF ===== */
+.payment-method {
+  width: 100%;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.payment-method .pm-options {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.payment-method label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ===== tabela ===== */
+.table-container { margin-top: 22px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 12px; text-align: center; border-bottom: 1px solid #eef2ff; }
+th { background: #0f172a; color: #fff; }
+
+/* ===== responsividade ===== */
+@media (max-width: 740px) {
+  .carousel-item { min-width: 180px; }
+  .converter { flex-direction: column; align-items: center; }
+  .controls { flex-direction: column; gap: 8px; }
+  .block { width: 100%; max-width: 520px; }
+}

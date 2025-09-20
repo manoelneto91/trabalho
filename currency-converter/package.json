@@ -1,0 +1,19 @@
+{
+  "name": "currency-converter-fullstack",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd /d backend && npm run dev",
+    "client": "cd /d frontend && npm start",
+    "server-only": "cd backend && npm run dev",
+    "client-only": "cd frontend && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "lucide-react": "^0.542.0"
+  }
+}
